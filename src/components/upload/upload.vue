@@ -1,58 +1,53 @@
 <template>
   <el-dialog title="上传文件" :visible="updateVisible" :close-on-click-modal='false' :show-close='false'>
     <el-form :model="form">
-      <el-form-item label="合作伙伴" :label-width="formLabelWidth">
-        <el-select v-model="form.partner" placeholder="请选择合作伙伴">
-          <el-option label="180" value="180"></el-option>
-          <el-option label="pinyou" value="pinyou"></el-option>
-          <el-option label="tdx" value="tdx"></el-option>
-        </el-select>
+      <el-form-item :label-width="formLabelWidth" label="发布时间:" class="postInfo-container-item">
+        <el-date-picker v-model="form.createTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间">
+        </el-date-picker>
       </el-form-item>
-      <div v-show="form.partner">
-        <el-form-item label="上传" :label-width="formLabelWidth">
-          <div class="example-drag">
-            <div class="upload">
-              <ul v-if="files.length" style="margin-right: 40px">
-                <li v-for="(file, index) in files" :key="file.id">
-                  <span>{{file.name}}</span> -
-                  <span>{{file.size | formatSize}}</span>
-                  <span v-if="file.error">{{file.error}}</span>
-                  <span v-else-if="file.success"> - 成功</span>
-                  <span v-else-if="file.active"> - 上传中</span>
-                  <span v-else></span>
-                </li>
-              </ul>
-              <ul v-else style="margin-right: 40px">
-                <div class="text-center" style="border: 1px dashed #bfcbd9;">
-                  <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">将文件拖到此处，或点击<label for="file"><em>选择文件</em></label></div>
-                </div>
-              </ul>
-
-              <!--<div v-show=" $refs.upload && $refs.upload.dropActive" class="drop-active">
-                <h3>将 文 件 上 传</h3>
-              </div>-->
-
-              <div class="example-btn" style="text-align: center;margin-bottom: 15px;">
-                <file-upload class="btn btn-primary" post-action="api/advpackage/upload" :multiple="true" :drop="true"
-                             :drop-directory="true" v-model="files" :data="form" ref="upload">
-                  <i class="fa fa-plus"></i>
-                  选择文件
-                </file-upload>
-                <button type="button" class="btn btn-success" v-if="!$refs.upload || !$refs.upload.active"
-                        @click.prevent="$refs.upload.active = true">
-                  <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                  开始上传
-                </button>
-                <button type="button" class="btn btn-danger" v-else @click.prevent="$refs.upload.active = false">
-                  <i class="fa fa-stop" aria-hidden="true"></i>
-                  停止上传
-                </button>
+      <el-form-item label="上传" :label-width="formLabelWidth">
+        <div class="example-drag">
+          <div class="upload">
+            <ul v-if="files.length" style="margin: 40px">
+              <li v-for="(file, index) in files" :key="file.id">
+                <span>{{file.name}}</span> -
+                <span>{{file.size | formatSize}}</span>
+                <span v-if="file.error">{{file.error}}</span>
+                <span v-else-if="file.success"> - 成功</span>
+                <span v-else-if="file.active"> - 上传中</span>
+                <span v-else></span>
+              </li>
+            </ul>
+            <ul v-else style="margin: 40px">
+              <div style="border: 1px dashed #bfcbd9;text-align: center;">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或点击<label for="file"><em>选择文件</em></label></div>
               </div>
+            </ul>
+
+            <!--<div v-show=" $refs.upload && $refs.upload.dropActive" class="drop-active">
+              <h3>将 文 件 上 传</h3>
+            </div>-->
+
+            <div class="example-btn" style="text-align: center;margin-bottom: 15px;">
+              <file-upload class="btn btn-primary" post-action="api/upload/picture" :multiple="true" :drop="true"
+                           :drop-directory="true" v-model="files" :data="form" ref="upload">
+                <i class="fa fa-plus"></i>
+                选择文件
+              </file-upload>
+              <button type="button" class="btn btn-success" v-if="!$refs.upload || !$refs.upload.active"
+                      @click.prevent="$refs.upload.active = true">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                开始上传
+              </button>
+              <button type="button" class="btn btn-danger" v-else @click.prevent="$refs.upload.active = false">
+                <i class="fa fa-stop" aria-hidden="true"></i>
+                停止上传
+              </button>
             </div>
           </div>
-        </el-form-item>
-      </div>
+        </div>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <!--<el-button @click="updateVisible = false">取 消</el-button>-->
@@ -61,10 +56,10 @@
   </el-dialog>
 </template>
 <script>
-  import FileUpload from 'vue-upload-component'
+  import FileUpload from 'vue-upload-component';
 
   export default {
-    name: 'packageupload',
+    name: 'uploadpicture',
     components: {
       FileUpload
     },
@@ -76,54 +71,54 @@
     },
     data() {
       return {
-        dialogFormVisible: false,
+        dialogFormVisible: true,
         files: [],
         formLabelWidth: '120px',
         form: {
-          partner: '180'
+          createTime: undefined
         }
-      }
+      };
     },
     watch: {
       show: function (a) {
-        this.dialogFormVisible = true // 只要show改变，就更新dialogFormVisible
+        this.dialogFormVisible = true; // 只要show改变，就更新dialogFormVisible
       }
     },
     computed: {
       updateVisible: {
         get: function () {
-          return this.dialogFormVisible
+          return this.dialogFormVisible;
         },
         set: function (value) {
-          this.dialogFormVisible = value
+          this.dialogFormVisible = value;
         }
       }
     },
     methods: {
       comfirm() {
-        this.updateVisible = false
-        this.$emit('advpackagerefresh', 'refresh parent')
+        this.updateVisible = false;
+        this.$emit('advpackagerefresh', 'refresh parent');
       },
       async customAction(file, component) {
         // return await component.uploadPut(file)
-        return await component.uploadHtml4(file)
+        return await component.uploadHtml4(file);
       }
     },
     filters: {
       formatSize(size) {
         if (size > 1024 * 1024 * 1024 * 1024) {
-          return (size / 1024 / 1024 / 1024 / 1024).toFixed(2) + ' TB'
+          return (size / 1024 / 1024 / 1024 / 1024).toFixed(2) + ' TB';
         } else if (size > 1024 * 1024 * 1024) {
-          return (size / 1024 / 1024 / 1024).toFixed(2) + ' GB'
+          return (size / 1024 / 1024 / 1024).toFixed(2) + ' GB';
         } else if (size > 1024 * 1024) {
-          return (size / 1024 / 1024).toFixed(2) + ' MB'
+          return (size / 1024 / 1024).toFixed(2) + ' MB';
         } else if (size > 1024) {
-          return (size / 1024).toFixed(2) + ' KB'
+          return (size / 1024).toFixed(2) + ' KB';
         }
-        return size.toString() + ' B'
+        return size.toString() + ' B';
       }
     }
-  }
+  };
 </script>
 <style>
   .example-drag {

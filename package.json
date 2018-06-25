@@ -18,6 +18,8 @@
     "vue-lazyload": "^1.0.0-rc12",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.1.1",
+    "element-ui": "1.4.3",
+    "vue-upload-component": "^2.8.8",
     "vuex": "^2.1.1"
   },
   "devDependencies": {

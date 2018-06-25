@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import store from './vuex/store';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-default/index.css';
+import locale from 'element-ui/lib/locale/lang/en';
 import VueRouter from 'vue-router';
 import routes from './routers'; // 引入路由配置
 import vueResource from 'vue-resource';
@@ -12,6 +15,7 @@ import 'common/css/index.styl'; // 引入公共样式
 Vue.use(infiniteScroll);
 Vue.use(VueRouter);
 Vue.use(vueResource);
+Vue.use(ElementUI, { locale });
 
 // error，loading是图片路径, 用require引入
 Vue.use(VueLazyload, {

@@ -39,6 +39,14 @@ const routers = [{
           resolve(require('./components/lists/daily.vue'));
         });
       }
+    }, {
+      path: '/upload',
+      name: 'upload',
+      component(resolve) {
+        require.ensure(['./components/upload/upload.vue'], () => {
+          resolve(require('./components/upload/upload.vue'));
+        });
+      }
     }
   ]
 }, {

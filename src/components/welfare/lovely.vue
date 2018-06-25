@@ -2,12 +2,12 @@
   <div class="welfare-wrapper" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy"
        infinite-scroll-distance="10">
     <div class="welfare-center">
-      <figure v-show="leftData.length > 0" v-for="data in leftData" @click="selectDetails(data.createdAt)">
+      <figure v-show="leftData.length > 0" v-for="data in leftData">
         <v-img :imgUrl="data.url"></v-img>
       </figure>
     </div>
     <div class="welfare-center">
-      <figure v-show="rightData.length > 0" v-for="data in rightData" @click="selectDetails(data.createdAt)">
+      <figure v-show="rightData.length > 0" v-for="data in rightData">
         <v-img :imgUrl="data.url"></v-img>
       </figure>
     </div>
@@ -40,7 +40,7 @@
     methods: {
       loadTop() {
         this.$store.commit('UPDATE_LOADING', true);
-        this.$http.get(`https://gank.io/api/data/福利/10/${this.page}`).then((response) => {
+        this.$http.get(`api/data/lovely/10/${this.page}`).then((response) => {
           let left = response.body.results.filter((data, i) => {
             return (i + 1) % 2 === 1;
           });

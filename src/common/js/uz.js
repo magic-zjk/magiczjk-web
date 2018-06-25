@@ -1,1 +1,1 @@
-export const NAME_TITILE = ['lovely', 'day', 'daily'];
+export const NAME_TITILE = ['lovely'];
