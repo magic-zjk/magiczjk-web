@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="上传文件" :visible="updateVisible" :close-on-click-modal='false' :show-close='false'>
+  <el-dialog title="上传文件" :visible="updateVisible" :close-on-click-modal='false' :show-close='false' top="10vh">
     <el-form :model="form">
       <el-form-item :label-width="formLabelWidth" label="发布时间:" class="postInfo-container-item">
         <el-date-picker v-model="form.createTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间">
@@ -8,7 +8,7 @@
       <el-form-item label="上传" :label-width="formLabelWidth">
         <div class="example-drag">
           <div class="upload">
-            <ul v-if="files.length" style="margin: 40px">
+            <ul v-if="files.length" style="margin: 20px">
               <li v-for="(file, index) in files" :key="file.id">
                 <span>{{file.name}}</span> -
                 <span>{{file.size | formatSize}}</span>
@@ -73,9 +73,9 @@
       return {
         dialogFormVisible: true,
         files: [],
-        formLabelWidth: '120px',
+        formLabelWidth: '25%',
         form: {
-          createTime: undefined
+          createTime: new Date()
         }
       };
     },
@@ -125,10 +125,12 @@
     border: 1px solid #bfcbd9;
     border-radius: 4px;
   }
+  .el-dialog--small {
+     width: 90%;
+  }
 
   .example-drag label.btn {
     margin-bottom: 0;
-    margin-right: 1rem;
   }
 
   .example-drag .drop-active {
